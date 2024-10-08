@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTMX for AJAX handling -->
+    <script src="https://unpkg.com/htmx.org@2.0.3" crossorigin="anonymous"></script>  
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .game-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container text-center" id="guess">
+        <h2 class="mb-4">Guess the Number Game</h2>
+        <p class="lead" id="guess">I am thinking of a number between <strong>{{random_range_start}} and {{random_range_end}}</strong>. Can you guess it?</p>
+
+        <div class="form-group">
+            <input type="number" id="guessInput" class="form-control" placeholder="Enter your guess" min="{{random_range_start}}" max="{{random_range_end}}" name="inp"
+            hx-get="/display_answer/" 
+            hx-trigger="input" 
+            hx-target="#feedback" 
+            hx-swap="outerHTML">
+            >
+        </div>
+        
+
+        <button id="restartGame" class="btn btn-primary btn-block mb-4" 
+                hx-get="/change_guess/" 
+                hx-trigger="click" 
+                hx-target="#guess" 
+                hx-swap="innerHTML">
+            Restart Game
+        </button>
+
+        <div id="feedback" class="alert alert-warning" role="alert">Make your guess!</div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
